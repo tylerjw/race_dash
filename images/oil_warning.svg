@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   id="svg3336"
+   version="1.1"
+   inkscape:version="0.91 r13725"
+   width="120"
+   height="80"
+   viewBox="0 0 120 80"
+   sodipodi:docname="oil_warning.svg">
+  <metadata
+     id="metadata3342">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs3340" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1860"
+     inkscape:window-height="1468"
+     id="namedview3338"
+     showgrid="false"
+     inkscape:zoom="13.536"
+     inkscape:cx="62.5"
+     inkscape:cy="45"
+     inkscape:window-x="299"
+     inkscape:window-y="256"
+     inkscape:window-maximized="0"
+     inkscape:current-layer="layer2" />
+  <g
+     id="g4162"
+     transform="translate(0,-10)" />
+  <g
+     inkscape:groupmode="layer"
+     id="layer2"
+     inkscape:label="background"
+     transform="translate(0,-10)">
+    <rect
+       style="opacity:1;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0;stroke-miterlimit:4;stroke-dasharray:none"
+       id="rect4175"
+       width="120"
+       height="80"
+       x="0"
+       y="10" />
+  </g>
+  <g
+     inkscape:groupmode="layer"
+     id="layer1"
+     inkscape:label="image"
+     style="display:inline"
+     transform="translate(0,-10)"
+     sodipodi:insensitive="true">
+    <g
+       style="fill:#ff0000;fill-opacity:1"
+       id="g4168"
+       transform="translate(-1.2802412,5.13672)">
+      <path
+         style="opacity:1;fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:0;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         d="M 38.181641,22.181641 38.091797,32.273438 42.273438,33 42.363281,35.181641 31.091797,35.363281 30,31.726562 l -17,-7 -8.2734375,19.728516 19.6367185,10 0.0918,10.81836 2.363281,2.271484 47,-0.181641 32.636718,-29.818359 1.54492,0.636719 2.36328,1.091797 3,0 1.18164,-0.728516 0.27344,-3.908203 -7.63672,-9.455078 -2,-0.363282 -1.27344,0.273438 L 103,26.273438 66.091797,40.181641 59.544922,35 l -9.181641,0 0,-2.363281 3.910157,-1.363281 0.08984,-9 -16.18164,-0.0918 z M 16.455078,33 l 8.089844,3.363281 0,10.181641 -11.089844,-5.363281 3,-8.181641 z m 81.271484,2.726562 -10.908203,9.636719 -10.544921,-1.544922 21.453124,-8.091797 z"
+         id="path3350"
+         inkscape:connector-curvature="0" />
+      <path
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+         d="m 112.95804,44.63948 4.87588,9.382388 -0.14775,3.841607 -1.99468,1.846927 -5.02364,-0.221631 -2.36407,-2.437944 0,-3.102836 z"
+         id="path4160"
+         inkscape:connector-curvature="0" />
+    </g>
+  </g>
+</svg>

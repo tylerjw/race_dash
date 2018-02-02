@@ -48,10 +48,13 @@ def draw_warnings(surface):
   turn_signal_right.set_colorkey(BLACK)
   battery = pygame.image.load('images/battery.png').convert()
   battery.set_colorkey(BLACK)
+  oil = pygame.image.load('images/oil.png').convert()
+  oil.set_colorkey(BLACK)
 
   surface.blit(turn_signal_left, (0,400))
   surface.blit(turn_signal_right, (740,400))
   surface.blit(battery, (60,400))
+  surface.blit(oil, (180,400))
 
 last_rpm = 7000
 rpm_diff = 100
