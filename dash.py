@@ -42,11 +42,16 @@ def draw_speedo(surface, speed, fontXl, fontSm):
   draw_text(surface,'mph',fontSm,WHITE,(200,280))
 
 def draw_warnings(surface):
+  turn_signal_left = pygame.image.load('images/turn_signal_left.png').convert()
+  turn_signal_left.set_colorkey(BLACK)
+  turn_signal_right = pygame.image.load('images/turn_signal_right.png').convert()
+  turn_signal_right.set_colorkey(BLACK)
   battery = pygame.image.load('images/battery.png').convert()
   battery.set_colorkey(BLACK)
-  check_engine = pygame.image.load('images/check_engine.png').convert()
 
-  surface.blit(battery, (0,400))
+  surface.blit(turn_signal_left, (0,400))
+  surface.blit(turn_signal_right, (740,400))
+  surface.blit(battery, (60,400))
 
 last_rpm = 7000
 rpm_diff = 100
