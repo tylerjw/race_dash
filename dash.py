@@ -41,6 +41,13 @@ def draw_speedo(surface, speed, fontXl, fontSm):
   draw_text(surface,speed_text,fontXl,WHITE,(200,200))
   draw_text(surface,'mph',fontSm,WHITE,(200,280))
 
+def draw_warnings(surface):
+  battery = pygame.image.load('images/battery.png').convert()
+  battery.set_colorkey(BLACK)
+  check_engine = pygame.image.load('images/check_engine.png').convert()
+
+  surface.blit(battery, (0,400))
+
 last_rpm = 7000
 rpm_diff = 100
 def get_rpm():
@@ -92,6 +99,7 @@ if __name__ == '__main__':
     draw_grid(DISPLAYSURF)
     draw_tach(DISPLAYSURF, get_rpm(), fontObjSm)
     draw_speedo(DISPLAYSURF, get_speed(), fontObjXl, fontObjSm)
+    draw_warnings(DISPLAYSURF)
 
     # update the display
     pygame.display.update()
