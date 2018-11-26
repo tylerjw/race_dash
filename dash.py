@@ -1,17 +1,10 @@
 import pygame, sys, math
 from pygame.locals import *
 from random import randint
-import signal
 
 BLACK = (0,0,0)
 RED = (255,0,0)
 WHITE = (255,255,255)
-
-def signal_handler(signal, frame):
-  print 'Signal: {}'.format(signal)
-  sleep(1)
-  pygame.quit()
-  sys.exit(0)
 
 def draw_text(surface,text,fontObj,color,center):
   textSurfaceObj = fontObj.render(text,True,color,BLACK)
@@ -117,11 +110,8 @@ class WarningLights:
 
 
 if __name__ == '__main__':
-  signal.signal(signal.SIGTERM, signal_handler)
-  signal.signal(signal.SIGINT, signal_handler)
-
   pygame.init()
-  pygame.mouse.set_visible(false)
+  pygame.mouse.set_visible(False)
   DISPLAYSURF=pygame.display.set_mode((800,480),0,32)
   pygame.display.set_caption('Endurance Honda Dash')
   fpsClock = pygame.time.Clock()
@@ -135,6 +125,10 @@ if __name__ == '__main__':
       if event.type == QUIT:
         pygame.quit()
         sys.exit()
+      if event.type == pygame.KEYDOWN:
+        if event.key == pygame.K_q:
+          pygame.quit()
+          sys.exit()
 
     # fill the screen black
     DISPLAYSURF.fill(BLACK)
