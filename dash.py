@@ -71,7 +71,7 @@ class Spedometer:
     self.fontXl = pygame.font.Font('Roboto/Roboto-Regular.ttf', 160)
     self.fontSm = pygame.font.Font('Roboto/Roboto-Regular.ttf', 24)
 
-  def draw_speedo(self, surface, speed):
+  def draw(self, surface, speed):
     speed_text = "{0:>3}".format(speed)
     draw_text(surface,speed_text,self.fontXl,WHITE,(200,200))
     draw_text(surface,'mph',self.fontSm,WHITE,(200,280))
