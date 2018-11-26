@@ -66,7 +66,7 @@ class Tachometer:
       color = WHITE if xpos < RedLineXpos else RED
       pygame.draw.line(surface,color,(xpos,0),(xpos,90),2)
 
-def Spedometer:
+class Spedometer:
   def __init__(self):
     self.fontXl = pygame.font.Font('Roboto/Roboto-Regular.ttf', 160)
     self.fontSm = pygame.font.Font('Roboto/Roboto-Regular.ttf', 24)
