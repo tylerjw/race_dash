@@ -10,11 +10,6 @@ BLUE = (0,0,255)
 WHITE = (255,255,255)
 ORANGE = (255, 153, 0)
 
-def start_can():
-  os.system('sudo ip link set can0 type can bitrate 100000')
-  os.system('sudo ifconfig can0 up')
-  return can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')# socketcan_native
-
 def stop_can():
   os.system('sudo ifconfig can0 down')
 
@@ -140,10 +135,14 @@ PID_COOLANT_TEMP    = 0x05
 PID_FUEL_LEVEL      = 0x2F
 
 if __name__ == '__main__':
-  can = start_can()
+  # setup can
+  os.system('sudo ip link set can0 type can bitrate 100000')
+  os.system('sudo ifconfig can0 up')
+  can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')# socketcan_native
   a_listener = can.BufferedReader()
-  notifier = can.Notifier(self.bus, [a_listener])
+  notifier = can.Notifier(can0, [a_listener])
 
+  # setup pygame
   pygame.init()
   pygame.mouse.set_visible(False)
   DISPLAYSURF=pygame.display.set_mode((800,480),0,32)
