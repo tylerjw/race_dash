@@ -22,9 +22,11 @@ if __name__ == '__main__':
   fuel_level = 0
 
   while True:
+    updated = False
     # update the values
     m = a_listener.get_message(0)
     while m:
+      updated = True
       if (m.arbitration_id == PID_RPM):
         rpm = (m.data[0]<<8 + m.data[1]) / 4
       elif (m.arbitration_id == PID_VEHICLE_SPEED):
@@ -37,4 +39,5 @@ if __name__ == '__main__':
         print(m)
       m = a_listener.get_message(0)
 
-    print("rpm: {}, speed: {}, water: {}, fuel: {}".format(rpm,speed_kph,water_c,fuel_level))
+    if updated:
+      print("rpm: {}, speed: {}, water: {}, fuel: {}".format(rpm,speed_kph,water_c,fuel_level))
