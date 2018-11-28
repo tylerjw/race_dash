@@ -90,7 +90,7 @@ class Tachometer:
 
 class Spedometer:
   def __init__(self):
-    self.font = pygame.font.Font('Roboto/Roboto-Regular.ttf', 200)
+    self.font = pygame.font.Font('Roboto/Roboto-Regular.ttf', 100)
 
   def draw(self, surface, speed):
     speed_text = "{0:.0f}".format(speed)
