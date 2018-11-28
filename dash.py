@@ -174,7 +174,8 @@ if __name__ == '__main__':
           sys.exit()
 
     # update the values
-    while m = a_listener.get_message(0):
+    m = a_listener.get_message(0)
+    while m:
       if (m.arbitration_id == PID_RPM):
         rpm = (m.data[0]<<8 + m.data[1]) / 4
       elif (m.arbitration_id == PID_VEHICLE_SPEED):
@@ -183,6 +184,7 @@ if __name__ == '__main__':
         water_c = m.data[0] - 40
       elif (m.arbitration_id == PID_FUEL_LEVEL):
         fuel_level = m.data[0] * 100. / 255
+      m = a_listener.get_message(0)
 
     # fill the screen black
     DISPLAYSURF.fill(BLACK)
