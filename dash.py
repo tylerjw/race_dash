@@ -139,6 +139,7 @@ if __name__ == '__main__':
   os.system('sudo ip link set can0 type can bitrate 500000')
   os.system('sudo ifconfig can0 up')
   can0 = can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')# socketcan_native
+  can0.setfilters([{"can_id": 0x0, "can_mask": 0x0, "extended": False}]) # filter out extended
   a_listener = can.BufferedReader()
   notifier = can.Notifier(can0, [a_listener])
 
