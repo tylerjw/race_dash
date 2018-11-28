@@ -73,7 +73,7 @@ class Tachometer:
     self.font = pygame.font.Font('Roboto/Roboto-Regular.ttf', 100)
 
   def draw(self, surface, rpm):
-    rpm_text = "{0:>4}".format(rpm)
+    rpm_text = "{}".format(int(rpm))
     draw_text(surface,rpm_text,self.font,WHITE,(769,340),"bottomright")
     values = list(range(6000,9000,250))
     idx = 0
@@ -93,7 +93,7 @@ class Spedometer:
     self.font = pygame.font.Font('Roboto/Roboto-Regular.ttf', 200)
 
   def draw(self, surface, speed):
-    speed_text = "{0:.0f}".format(speed)
+    speed_text = "{}".format(int(speed))
     draw_text(surface,speed_text,self.font,ORANGE,(769,280),"bottomright")
 
 class WarningLights:
@@ -178,7 +178,7 @@ if __name__ == '__main__':
       if (m.arbitration_id == PID_RPM):
         rpm = (m.data[0]*256. + m.data[1]) / 4
       elif (m.arbitration_id == PID_VEHICLE_SPEED):
-        speed_kph = int(m.data[0]) * 2
+        speed_kph = int(m.data[0])
       elif (m.arbitration_id == PID_COOLANT_TEMP):
         water_c = m.data[0] - 40
       elif (m.arbitration_id == PID_FUEL_LEVEL):
