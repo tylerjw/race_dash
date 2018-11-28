@@ -45,7 +45,7 @@ class FuelLevel:
     self.fontS = pygame.font.Font('Roboto/Roboto-Regular.ttf', 40)
 
   def draw(self, surface, level):
-    level_text = "{0:>3}".format(level)
+    level_text = "{0:.1f}".format(level)
     color = GREEN
     if level < 10:
       color = RED
@@ -176,9 +176,9 @@ if __name__ == '__main__':
     m = a_listener.get_message(0)
     while m:
       if (m.arbitration_id == PID_RPM):
-        rpm = (m.data[0]*256 + m.data[1]) / 4
+        rpm = (m.data[0]*256. + m.data[1]) / 4
       elif (m.arbitration_id == PID_VEHICLE_SPEED):
-        speed_kph = m.data[0]
+        speed_kph = int(m.data[0])
       elif (m.arbitration_id == PID_COOLANT_TEMP):
         water_c = m.data[0] - 40
       elif (m.arbitration_id == PID_FUEL_LEVEL):
