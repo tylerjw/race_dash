@@ -1,6 +1,7 @@
 import pygame, sys, math
 from pygame.locals import *
 from random import randint
+import os, can
 
 BLACK = (0,0,0)
 RED = (255,0,0)
@@ -8,6 +9,14 @@ GREEN = (0,255,0)
 BLUE = (0,0,255)
 WHITE = (255,255,255)
 ORANGE = (255, 153, 0)
+
+def start_can():
+  os.system('sudo ip link set can0 type can bitrate 100000')
+  os.system('sudo ifconfig can0 up')
+  return can.interface.Bus(channel = 'can0', bustype = 'socketcan_ctypes')# socketcan_native
+
+def stop_can():
+  os.system('sudo ifconfig can0 down')
 
 def draw_text(surface,text,fontObj,color,pos,position="center"):
   textSurfaceObj = fontObj.render(text,True,color,BLACK)
@@ -34,63 +43,6 @@ def draw_grid(surface):
   pygame.draw.line(surface,WHITE,(769,440),(769,480))
   pygame.draw.line(surface,WHITE,(649,440),(649,480))
 
-last_rpm = 7000
-rpm_diff = 100
-def get_rpm():
-  global last_rpm, rpm_diff
-  last_rpm += rpm_diff
-  if last_rpm > 9000:
-    last_rpm = 9000
-    rpm_diff = -100
-  elif last_rpm < 0:
-    last_rpm = 0
-    rpm_diff = 100
-  return last_rpm
-
-last_speed = 0
-speed_diff = 1
-def get_speed():
-  global last_speed, speed_diff
-  last_speed += speed_diff
-  if last_speed > 140:
-    last_speed = 140
-    speed_diff = -1
-  elif last_speed < 0:
-    last_speed = 0
-    speed_diff = 1
-  return last_speed
-
-last_fuel = 0
-fuel_diff = 0.1
-fuel_max = 100
-fuel_min = 0
-def get_fuel():
-  global last_fuel, fuel_diff
-  last_fuel += fuel_diff
-  if last_fuel > fuel_max:
-    last_fuel = fuel_max
-    fuel_diff = -1 * fuel_diff
-  elif last_fuel < fuel_min:
-    last_fuel = fuel_min
-    fuel_diff = -1 * fuel_diff
-  return last_fuel
-
-last_temp = 133
-temp_diff = 1.2
-temp_max = 220
-temp_min = 100
-def get_temp():
-  global last_temp, temp_diff
-  last_temp += temp_diff
-  if last_temp > temp_max:
-    last_temp = temp_max
-    temp_diff = -1 * temp_diff
-  elif last_temp < temp_min:
-    last_temp = temp_min
-    temp_diff = -1 * temp_diff
-  return last_temp
-
-
 
 class FuelLevel:
   def __init__(self):
@@ -98,7 +50,7 @@ class FuelLevel:
     self.fontS = pygame.font.Font('Roboto/Roboto-Regular.ttf', 40)
 
   def draw(self, surface, level):
-    level_text = "{0:.1f}".format(level)
+    level_text = "{0:>3}".format(level)
     color = GREEN
     if level < 10:
       color = RED
@@ -112,11 +64,11 @@ class WaterTemp:
     self.font = pygame.font.Font('Roboto/Roboto-Regular.ttf', 60)
 
   def draw(self, surface, temp):
-    level_text = "{0:.1f}°F".format(temp)
-    color = ORANGE
-    if temp > 212:
+    level_text = "{0:>3}°C".format(temp)
+    color = BLUE
+    if temp > 100:
       color = RED
-    elif temp > 185:
+    elif temp > 85:
       color = GREEN
     draw_text(surface,level_text,self.font,color,(380,360),"bottomright")
 
@@ -182,7 +134,16 @@ class WarningLights:
     surface.blit(self.high_beams, (709,440))
 
 
+PID_RPM             = 0x0C
+PID_VEHICLE_SPEED   = 0x0D
+PID_COOLANT_TEMP    = 0x05
+PID_FUEL_LEVEL      = 0x2F
+
 if __name__ == '__main__':
+  can = start_can()
+  a_listener = can.BufferedReader()
+  notifier = can.Notifier(self.bus, [a_listener])
+
   pygame.init()
   pygame.mouse.set_visible(False)
   DISPLAYSURF=pygame.display.set_mode((800,480),0,32)
@@ -195,25 +156,43 @@ if __name__ == '__main__':
   water = WaterTemp()
   fuel = FuelLevel()
 
+  rpm = 0
+  speed_kph = 0
+  water_c = 0
+  fuel_level = 0
+
   while True:
     for event in pygame.event.get():
       if event.type == QUIT:
+        stop_can()
         pygame.quit()
         sys.exit()
       if event.type == pygame.KEYDOWN:
         if event.key == pygame.K_q:
+          stop_can()
           pygame.quit()
           sys.exit()
+
+    # update the values
+    while m = a_listener.get_message(0):
+      if (m.arbitration_id == PID_RPM):
+        rpm = (m.data[0]<<8 + m.data[1]) / 4
+      elif (m.arbitration_id == PID_VEHICLE_SPEED):
+        speed_kph = m.data[0]
+      elif (m.arbitration_id == PID_COOLANT_TEMP):
+        water_c = m.data[0] - 40
+      elif (m.arbitration_id == PID_FUEL_LEVEL):
+        fuel_level = m.data[0] * 100. / 255
 
     # fill the screen black
     DISPLAYSURF.fill(BLACK)
 
     # draw on the display
     draw_grid(DISPLAYSURF)
-    speedo.draw(DISPLAYSURF, get_speed())
-    tach.draw(DISPLAYSURF, get_rpm())
-    water.draw(DISPLAYSURF, get_temp())
-    fuel.draw(DISPLAYSURF, get_fuel())
+    speedo.draw(DISPLAYSURF, speed_kph)
+    tach.draw(DISPLAYSURF, rpm)
+    water.draw(DISPLAYSURF, water_c)
+    fuel.draw(DISPLAYSURF, fuel_level)
     warningLights.draw(DISPLAYSURF)
 
     # update the display
