@@ -93,7 +93,7 @@ class Spedometer:
     self.font = pygame.font.Font('Roboto/Roboto-Regular.ttf', 200)
 
   def draw(self, surface, speed):
-    speed_text = "{0:>3}".format(speed)
+    speed_text = "{}".format(speed)
     draw_text(surface,speed_text,self.font,ORANGE,(769,280),"bottomright")
 
 class WarningLights:

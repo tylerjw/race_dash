@@ -31,7 +31,7 @@ if __name__ == '__main__':
       if (m.arbitration_id == PID_RPM):
         rpm = (m.data[0]*256 + m.data[1]) / 4
       elif (m.arbitration_id == PID_VEHICLE_SPEED):
-        speed_kph = m.data[0]
+        speed_kph = int(m.data[0])
       elif (m.arbitration_id == PID_COOLANT_TEMP):
         water_c = m.data[0] - 40
       elif (m.arbitration_id == PID_FUEL_LEVEL):
