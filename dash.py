@@ -90,7 +90,7 @@ class Tachometer:
 
 class Spedometer:
   def __init__(self):
-    self.font = pygame.font.Font('Roboto/Roboto-Regular.ttf', 100)
+    self.font = pygame.font.Font('Roboto/Roboto-Regular.ttf', 200)
 
   def draw(self, surface, speed):
     speed_text = "{0:.0f}".format(speed)
@@ -178,7 +178,7 @@ if __name__ == '__main__':
       if (m.arbitration_id == PID_RPM):
         rpm = (m.data[0]*256. + m.data[1]) / 4
       elif (m.arbitration_id == PID_VEHICLE_SPEED):
-        speed_kph = int(m.data[0])
+        speed_kph = int(m.data[0]) * 2
       elif (m.arbitration_id == PID_COOLANT_TEMP):
         water_c = m.data[0] - 40
       elif (m.arbitration_id == PID_FUEL_LEVEL):
